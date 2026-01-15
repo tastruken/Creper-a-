@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boosted Crepería - El arte de la Crepa Perfecta</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        /* Fuentes */
+        .font-hand { font-family: 'Pacifico', cursive; }
+        .font-heading { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Quicksand', sans-serif; }
+        
+        /* Colores Personalizados (Variables CSS para fácil edición) */
+        :root {
+            --primary: #00B4D8;
+            --primary-dark: #0077B6;
+            --secondary: #E0F7FA;
+            --accent: #FFD166;
+            --text: #2B2D42;
+            --white: #FFFFFF;
+        }
+
+        /* Utilidades personalizadas */
+        .bg-pattern {
+            background-color: #ffffff;
+            background-image: radial-gradient(#00B4D8 0.5px, transparent 0.5px), radial-gradient(#00B4D8 0.5px, #ffffff 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        
+        .selection-cyan ::selection {
+            background-color: #caf0f8;
+            color: #0077b6;
+        }
+
+        /* Animación Flotante */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating { animation: float 6s ease-in-out infinite; }
+        
+        /* Utilidades de texto específicas para los colores de la marca */
+        .text-brand-primary { color: var(--primary); }
+        .text-brand-dark { color: var(--text); }
+        .bg-brand-primary { background-color: var(--primary); }
+        .bg-brand-secondary { background-color: var(--secondary); }
+    </style>
+</head>
+<body class="font-body min-h-screen text-gray-800 selection-cyan">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6 bg-transparent">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <div class="flex items-center gap-2 group cursor-pointer">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-cyan-200 rounded-full blur opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative p-2 bg-white rounded-full border-2 border-[color:var(--primary)]">
+                        <i data-lucide="chef-hat" class="w-7 h-7 text-[color:var(--primary-dark)]"></i>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading font-bold text-2xl leading-none text-gray-800">
+                        Boosted
+                    </span>
+                    <span class="font-hand text-lg text-[color:var(--primary)] leading-none -mt-1 transform -rotate-2">
+                        Crepería
+                    </span>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 font-medium">
+                <a href="#inicio" class="relative group text-gray-700 hover:text-[color:var(--primary-dark)] transition-colors">
+                    Inicio
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[color:var(--primary)] transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#menu" class="relative group text-gray-700 hover:text-[color:var(--primary-dark)] transition-colors">
+                    Menú
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[color:var(--primary)] transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#nosotros" class="relative group text-gray-700 hover:text-[color:var(--primary-dark)] transition-colors">
+                    Nosotros
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[color:var(--primary)] transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#ubicacion" class="relative group text-gray-700 hover:text-[color:var(--primary-dark)] transition-colors">
+                    Ubicación
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[color:var(--primary)] transition-all group-hover:w-full"></span>
+                </a>
+                
+                <a href="#ubicacion" class="px-6 py-2.5 rounded-full font-bold bg-gray-900 text-white shadow-lg hover:shadow-xl hover:bg-gray-800 transition-all flex items-center gap-2">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i> Visítanos
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-gray-700">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-2xl p-6 flex flex-col gap-4 border-t border-gray-100">
+            <a href="#inicio" class="mobile-link text-xl font-heading font-bold text-gray-800">Inicio</a>
+            <a href="#menu" class="mobile-link text-xl font-heading font-bold text-gray-800">Menú</a>
+            <a href="#nosotros" class="mobile-link text-xl font-heading font-bold text-gray-800">Nosotros</a>
+            <a href="#ubicacion" class="mobile-link w-full py-3 rounded-xl font-bold bg-[color:var(--primary)] text-white text-center">Ver Ubicación</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header id="inicio" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
+        <!-- Decoraciones de Fondo -->
+        <div class="absolute top-0 right-0 w-2/3 h-full bg-[color:var(--secondary)] opacity-60 rounded-bl-[100px] -z-10"></div>
+        <div class="absolute top-20 left-10 w-24 h-24 bg-yellow-100 rounded-full blur-3xl opacity-60"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                
+                <!-- Texto Hero -->
+                <div class="lg:w-1/2 space-y-6">
+                    <span class="font-hand text-3xl text-[color:var(--primary)] block mb-2 transform -rotate-2">
+                        ¡Bonjour, delicia!
+                    </span>
+                    <h1 class="font-heading text-5xl lg:text-7xl font-bold text-gray-900 leading-[1.1]">
+                        El arte de la <br/>
+                        <span class="relative inline-block mt-2">
+                            <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[color:var(--primary)] to-blue-600">Crepa Perfecta</span>
+                            <svg class="absolute w-full h-3 -bottom-1 left-0 text-yellow-300 z-0 opacity-80" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none" />
+                            </svg>
+                        </span>
+                    </h1>
+                    <p class="text-lg text-gray-600 max-w-lg leading-relaxed font-light">
+                        Descubre nuestra carta. Sabores auténticos, ingredientes frescos y esa pasión por el detalle que nos hace únicos.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#menu" class="flex items-center gap-3 px-8 py-4 bg-[color:var(--primary)] text-white rounded-full font-bold shadow-xl hover:shadow-cyan-200/50 hover:bg-[color:var(--primary-dark)] transition-all transform hover:-translate-y-1">
+                            Ver Carta Completa <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+
+                    <div class="flex items-center gap-4 pt-6 text-sm font-medium text-gray-500">
+                        <div class="flex -space-x-3">
+                            <img src="https://i.pravatar.cc/100?img=21" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
+                            <img src="https://i.pravatar.cc/100?img=22" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
+                            <img src="https://i.pravatar.cc/100?img=23" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
+                        </div>
+                        <p>Amado por <span class="text-[color:var(--primary-dark)] font-bold">1,200+</span> foodies</p>
+                    </div>
+                </div>
+
+                <!-- Imagen Hero -->
+                <div class="lg:w-1/2 relative">
+                    <div class="relative w-full aspect-square max-w-md mx-auto floating">
+                        <div class="absolute inset-0 border-2 border-dashed border-cyan-300 rounded-full animate-[spin_30s_linear_infinite]"></div>
+                        <div class="absolute inset-4 rounded-full overflow-hidden shadow-2xl border-8 border-white">
+                            <img 
+                                src="https://images.unsplash.com/photo-1504113882839-58e39d382cd4?auto=format&fit=crop&q=80&w=1000" 
+                                alt="Plato de crepas" 
+                                class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-700"
+                            />
+                        </div>
+                        
+                        <!-- Badge Flotante -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 animate-bounce" style="animation-duration: 3s;">
+                            <div class="bg-yellow-100 p-2 rounded-full">
+                                <i data-lucide="star" class="w-6 h-6 text-yellow-500 fill-current"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">Top Rated</p>
+                                <p class="text-xs text-gray-500">Mejor postre 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CINTA DE CARACTERÍSTICAS -->
+    <div class="bg-[color:var(--primary)] text-white py-12 transform -skew-y-2 origin-left shadow-inner overflow-hidden relative">
+        <div class="container mx-auto px-6 transform skew-y-2">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/20">
+                <div>
+                    <p class="font-heading font-bold text-2xl md:text-3xl">100% Frescos</p>
+                    <p class="font-hand text-cyan-100 text-lg mt-1 opacity-90">Ingredientes</p>
+                </div>
+                <div>
+                    <p class="font-heading font-bold text-2xl md:text-3xl">Secreta</p>
+                    <p class="font-hand text-cyan-100 text-lg mt-1 opacity-90">Receta</p>
+                </div>
+                <div>
+                    <p class="font-heading font-bold text-2xl md:text-3xl">Al Momento</p>
+                    <p class="font-hand text-cyan-100 text-lg mt-1 opacity-90">Preparación</p>
+                </div>
+                <div>
+                    <p class="font-heading font-bold text-2xl md:text-3xl">Inolvidable</p>
+                    <p class="font-hand text-cyan-100 text-lg mt-1 opacity-90">Sabor</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN MENÚ -->
+    <section id="menu" class="py-24 bg-pattern relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="font-hand text-2xl text-[color:var(--primary-dark)]">Nuestras Creaciones</span>
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-6">
+                    Elige tu felicidad
+                </h2>
+                <p class="text-gray-600">Un menú diseñado para enamorarte a primera vista.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Item 1 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 flex flex-col">
+                    <div class="relative h-64 rounded-[1.5rem] overflow-hidden mb-6 flex-shrink-0">
+                        <div class="absolute inset-0 bg-gray-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=800" alt="La Parisina" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 z-20 flex flex-col gap-2">
+                            <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 w-max">
+                                <i data-lucide="star" class="w-3 h-3 fill-current"></i> FAVORITO
+                            </span>
+                            <span class="bg-white/90 backdrop-blur-sm text-gray-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm w-max">Favorito</span>
+                        </div>
+                        <button class="absolute bottom-4 right-4 z-20 bg-white p-2 rounded-full shadow-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                            <i data-lucide="heart" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="px-2 pb-2 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-heading text-2xl font-bold text-gray-800 group-hover:text-[color:var(--primary)] transition-colors">La Parisina</h3>
+                            <span class="font-body font-bold text-xl text-[color:var(--primary)] bg-cyan-50 px-3 py-1 rounded-lg ml-2 whitespace-nowrap">$4.800</span>
+                        </div>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">Nuestra estrella: Nutella abundante, fresas recién cortadas, plátano y lluvia de almendras tostadas.</p>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-wider">
+                            <span>Dulce</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 flex flex-col">
+                    <div class="relative h-64 rounded-[1.5rem] overflow-hidden mb-6 flex-shrink-0">
+                        <div class="absolute inset-0 bg-gray-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1626372412803-b54130097f5f?auto=format&fit=crop&q=80&w=800" alt="Bretona Salada" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 z-20 flex flex-col gap-2">
+                            <span class="bg-white/90 backdrop-blur-sm text-gray-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm w-max">Sin Gluten</span>
+                        </div>
+                        <button class="absolute bottom-4 right-4 z-20 bg-white p-2 rounded-full shadow-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                            <i data-lucide="heart" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="px-2 pb-2 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-heading text-2xl font-bold text-gray-800 group-hover:text-[color:var(--primary)] transition-colors">Bretona Salada</h3>
+                            <span class="font-body font-bold text-xl text-[color:var(--primary)] bg-cyan-50 px-3 py-1 rounded-lg ml-2 whitespace-nowrap">$6.200</span>
+                        </div>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">Masa de trigo sarraceno, huevo de campo, jamón serrano, queso gruyère y rúcula fresca.</p>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-wider">
+                            <span>Gourmet</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 flex flex-col">
+                    <div class="relative h-64 rounded-[1.5rem] overflow-hidden mb-6 flex-shrink-0">
+                        <div class="absolute inset-0 bg-gray-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1528657682498-f8602b937012?auto=format&fit=crop&q=80&w=800" alt="Bosque Encantado" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 z-20 flex flex-col gap-2">
+                            <span class="bg-white/90 backdrop-blur-sm text-gray-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm w-max">Vegetariano</span>
+                        </div>
+                        <button class="absolute bottom-4 right-4 z-20 bg-white p-2 rounded-full shadow-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                            <i data-lucide="heart" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="px-2 pb-2 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-heading text-2xl font-bold text-gray-800 group-hover:text-[color:var(--primary)] transition-colors">Bosque Encantado</h3>
+                            <span class="font-body font-bold text-xl text-[color:var(--primary)] bg-cyan-50 px-3 py-1 rounded-lg ml-2 whitespace-nowrap">$5.500</span>
+                        </div>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">Queso crema batido con vainilla, compota casera de frutos del bosque y menta fresca.</p>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-wider">
+                            <span>Dulce</span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Item 4 -->
+                 <div class="group bg-white rounded-[2rem] p-4 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 flex flex-col">
+                    <div class="relative h-64 rounded-[1.5rem] overflow-hidden mb-6 flex-shrink-0">
+                        <div class="absolute inset-0 bg-gray-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1605494632789-06353d4f1348?auto=format&fit=crop&q=80&w=800" alt="Pollo Champignon" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 z-20 flex flex-col gap-2">
+                             <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 w-max">
+                                <i data-lucide="star" class="w-3 h-3 fill-current"></i> FAVORITO
+                            </span>
+                            <span class="bg-white/90 backdrop-blur-sm text-gray-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm w-max">Recomendado</span>
+                        </div>
+                        <button class="absolute bottom-4 right-4 z-20 bg-white p-2 rounded-full shadow-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                            <i data-lucide="heart" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="px-2 pb-2 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-heading text-2xl font-bold text-gray-800 group-hover:text-[color:var(--primary)] transition-colors">Pollo Champignon</h3>
+                            <span class="font-body font-bold text-xl text-[color:var(--primary)] bg-cyan-50 px-3 py-1 rounded-lg ml-2 whitespace-nowrap">$5.900</span>
+                        </div>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">Pechuga de pollo desmenuzada, salsa bechamel de la casa, champiñones salteados y queso mozzarella.</p>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-wider">
+                            <span>Salada</span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Item 5 -->
+                 <div class="group bg-white rounded-[2rem] p-4 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 flex flex-col">
+                    <div class="relative h-64 rounded-[1.5rem] overflow-hidden mb-6 flex-shrink-0">
+                        <div class="absolute inset-0 bg-gray-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1584278860047-22db9ff82bed?auto=format&fit=crop&q=80&w=800" alt="Choco-Banana" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        
+                        <button class="absolute bottom-4 right-4 z-20 bg-white p-2 rounded-full shadow-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                            <i data-lucide="heart" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="px-2 pb-2 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-heading text-2xl font-bold text-gray-800 group-hover:text-[color:var(--primary)] transition-colors">Choco-Banana</h3>
+                            <span class="font-body font-bold text-xl text-[color:var(--primary)] bg-cyan-50 px-3 py-1 rounded-lg ml-2 whitespace-nowrap">$4.500</span>
+                        </div>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">La clásica infalible. Doble porción de chocolate fundido, rodajas de plátano y crema batida.</p>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-wider">
+                            <span>Clásica</span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Item 6 -->
+                 <div class="group bg-white rounded-[2rem] p-4 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 flex flex-col">
+                    <div class="relative h-64 rounded-[1.5rem] overflow-hidden mb-6 flex-shrink-0">
+                        <div class="absolute inset-0 bg-gray-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1458642849426-cfb724f15ef7?auto=format&fit=crop&q=80&w=800" alt="Caprese Royal" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 z-20 flex flex-col gap-2">
+                            <span class="bg-white/90 backdrop-blur-sm text-gray-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm w-max">Light</span>
+                        </div>
+                        <button class="absolute bottom-4 right-4 z-20 bg-white p-2 rounded-full shadow-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                            <i data-lucide="heart" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="px-2 pb-2 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-heading text-2xl font-bold text-gray-800 group-hover:text-[color:var(--primary)] transition-colors">Caprese Royal</h3>
+                            <span class="font-body font-bold text-xl text-[color:var(--primary)] bg-cyan-50 px-3 py-1 rounded-lg ml-2 whitespace-nowrap">$5.200</span>
+                        </div>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">Tomates cherry confitados, pesto de albahaca fresca, mozzarella di bufala y un toque de balsámico.</p>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-wider">
+                            <span>Vegetariana</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN NOSOTROS -->
+    <section id="nosotros" class="py-20 bg-white border-t border-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 relative">
+                    <div class="absolute top-4 -left-4 w-full h-full bg-[color:var(--secondary)] rounded-3xl -z-10 transform -rotate-2"></div>
+                    <img 
+                        src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?auto=format&fit=crop&q=80&w=800" 
+                        alt="Equipo Boosted" 
+                        class="rounded-3xl shadow-xl w-full object-cover transform hover:scale-105 transition-transform duration-500" 
+                    />
+                </div>
+                <div class="md:w-1/2 space-y-6">
+                    <span class="font-hand text-2xl text-[color:var(--primary)]">Nuestra Vibe</span>
+                    <h2 class="font-heading text-4xl font-bold text-gray-900">Energía en cada bocado</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        En <strong>Boosted Crepería</strong>, no solo servimos comida, creamos momentos. Somos un equipo joven obsesionado con la calidad y la frescura.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Desde nuestra masa casera preparada cada mañana hasta la última fresa cortada al momento, todo está pensado para darte un "boost" de felicidad. Sin complicaciones, solo sabor real.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section id="ubicacion" class="bg-gray-900 text-white py-24 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-64 h-64 bg-[color:var(--primary)] rounded-full blur-[100px] opacity-20"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-600 rounded-full blur-[120px] opacity-20"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <div class="space-y-8">
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold">
+                        ¿Dónde ocurre <br/><span class="text-[color:var(--primary)] font-hand">la magia?</span>
+                    </h2>
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        Ven por el café, quédate por las crepas. Te esperamos para que vivas la experiencia completa.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-[color:var(--primary)]"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">El Local</h4>
+                                <p class="text-gray-400">Av. Principal 123, Local 4</p>
+                                <p class="text-sm text-[color:var(--primary)] mt-1 cursor-pointer hover:underline">Ver en mapa</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                                <i data-lucide="clock" class="w-6 h-6 text-[color:var(--primary)]"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">Horarios</h4>
+                                <p class="text-gray-400">Lun - Dom: 10:00 AM - 9:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                                <i data-lucide="phone" class="w-6 h-6 text-[color:var(--primary)]"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">Contacto</h4>
+                                <p class="text-gray-400">+56 9 1234 5678</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-[color:var(--primary)] to-purple-500 rounded-[2rem] transform rotate-3 blur-sm"></div>
+                    <div class="relative bg-gray-800 rounded-[2rem] p-2 overflow-hidden transform -rotate-2 hover:rotate-0 transition-all duration-500 border border-white/10">
+                        <div class="h-80 w-full bg-gray-700 rounded-[1.5rem] flex items-center justify-center relative overflow-hidden group">
+                            <img 
+                                src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800"
+                                class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity" 
+                                alt="Mapa"
+                            />
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <button class="px-6 py-3 bg-white text-gray-900 rounded-full font-bold shadow-lg transform scale-90 group-hover:scale-100 transition-transform flex items-center gap-2">
+                                    <i data-lucide="map-pin" class="w-4 h-4 text-red-500"></i> Abrir Mapa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-100 py-12">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="chef-hat" class="w-6 h-6 text-[color:var(--primary)]"></i>
+                <span class="font-heading font-bold text-xl">Boosted Crepería</span>
+            </div>
+            
+            <div class="flex gap-6">
+                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-[color:var(--primary)] hover:text-white transition-all">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition-all">
+                    <i data-lucide="facebook" class="w-5 h-5"></i>
+                </a>
+            </div>
+
+            <p class="text-sm text-gray-500">© 2024 Hecho con amor 💙</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Inicializar iconos Lucide
+        lucide.createIcons();
+
+        // Lógica del Menú Móvil
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = menuBtn.querySelector('i'); // Para cambiar el icono si quisieras
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Cerrar menú al hacer click en un enlace
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Efecto Scroll en Navbar
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-lg');
+                navbar.classList.remove('bg-transparent', 'py-6');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-lg', 'py-2');
+                navbar.classList.add('bg-transparent', 'py-6');
+            }
+        });
+    </script>
+</body>
+</html>
